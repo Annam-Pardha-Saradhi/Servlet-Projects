@@ -1,0 +1,12 @@
+<%@page import="com.project.connectionprovider.ConnectionProvider"%>
+<%@page import="java.sql.*"%>
+
+<%
+try
+{
+	String product_id = request.getParameter("id");
+	Connection connection = ConnectionProvider.getConnection();
+	Statement statement = connection.createStatement();
+	statement.executeUpdate("delete from cart where product_id='"+product_id+"'");
+}
+%>

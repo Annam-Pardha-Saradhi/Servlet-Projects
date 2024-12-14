@@ -1,0 +1,5 @@
+package com.proj1.servlet;
+
+public class UserServlet {
+
+}

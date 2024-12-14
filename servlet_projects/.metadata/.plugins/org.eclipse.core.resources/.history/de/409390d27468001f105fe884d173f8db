@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+form
+{
+display:flex;
+flex-direction:column;
+justify-content:space-around;
+max-width:500px;
+max-height:300px;
+}
+form input
+{
+	padding:10px;
+	width:150px;
+}
+</style>
+</head>
+<body>
+<form action="register" method="post">
+<h1>Employee Registration</h1>
+<p>id</p>
+<input type="text" name="id"/><br>
+<p>first_Name</p> 
+<input type="text" name="firstName"/><br>
+<p>last_Name</p>
+<input type="text" name="lastName"/><br>
+<p>user_Name</p>
+<input type="text" name="userName"/><br>
+<p>password</p>
+<input type="text" name="password"/><br>
+<p>address</p>
+<input type="text" name="address"/><br>
+<p>contact</p>
+<input type="text" name="contact"/><br>
+<input type="submit"/>
+</form>
+</body>
+</html>

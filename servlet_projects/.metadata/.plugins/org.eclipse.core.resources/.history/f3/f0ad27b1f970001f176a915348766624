@@ -1,0 +1,5 @@
+package com.login_project.bean;
+
+public class User {
+
+}

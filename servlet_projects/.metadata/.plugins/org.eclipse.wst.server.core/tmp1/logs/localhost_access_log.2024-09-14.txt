@@ -1,0 +1,4 @@
+127.0.0.1 - - [14/Sep/2024:12:04:54 +0530] "GET / HTTP/1.1" 404 752
+0:0:0:0:0:0:0:1 - - [14/Sep/2024:12:04:55 +0530] "GET /Online_Shopping_Project/ HTTP/1.1" 404 780
+0:0:0:0:0:0:0:1 - - [14/Sep/2024:12:05:29 +0530] "GET /Online_Shopping_Project/signup.jsp HTTP/1.1" 200 535
+0:0:0:0:0:0:0:1 - - [14/Sep/2024:12:05:29 +0530] "GET /Online_Shopping_Project/css/signup-style.css HTTP/1.1" 200 1810

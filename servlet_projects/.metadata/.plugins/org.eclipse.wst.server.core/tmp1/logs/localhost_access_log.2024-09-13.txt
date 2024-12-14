@@ -1,0 +1,9 @@
+0:0:0:0:0:0:0:1 - - [13/Sep/2024:20:16:14 +0530] "GET /login_project/vendor/jquery/jquery.min.js HTTP/1.1" 404 805
+0:0:0:0:0:0:0:1 - - [13/Sep/2024:20:16:14 +0530] "GET /login_project/css/style.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [13/Sep/2024:20:16:14 +0530] "GET /login_project/images/signup-image.jpg HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [13/Sep/2024:20:16:14 +0530] "GET /login_project/fonts/material-icon/css/material-design-iconic-font.min.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [13/Sep/2024:20:16:15 +0530] "GET /login_project/js/main.js HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [13/Sep/2024:20:16:15 +0530] "GET /login_project/alert/dist/sweetalert.css HTTP/1.1" 404 803
+0:0:0:0:0:0:0:1 - - [13/Sep/2024:20:16:15 +0530] "GET /login_project/fonts/poppins/poppins-v5-latin-regular.woff2 HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [13/Sep/2024:20:16:15 +0530] "GET /login_project/fonts/material-icon/fonts/Material-Design-Iconic-Font.woff2?v=2.2.0 HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [13/Sep/2024:20:16:15 +0530] "GET /login_project/fonts/poppins/poppins-v5-latin-700.woff2 HTTP/1.1" 304 -

@@ -1,0 +1,19 @@
+<%@page import="com.project.connectionprovider.ConnectionProvider"%>
+<%@page import="java.sql.*"%>
+
+<%
+	try(Connection connection=ConnectionProvider.getConnection();
+		Statement statement = connection.createStatement();)
+	{
+		String query = "create table users (name varchar(100),email varchar(100) primary key,mobileNumber bigint,SecurityQuestion varchar(200),);";
+		System.out.println(query);
+		if(statement.execute(query))
+		{
+			System.out.println("Table Created");
+		}
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+%>

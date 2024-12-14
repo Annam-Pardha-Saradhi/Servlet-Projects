@@ -1,0 +1,18 @@
+<%@page import="com.project.connectionprovider.ConnectionProvider"%>
+<%@page import="java.sql.*"%>
+
+<%
+String email = session.getAttribute("email").toString();
+String address = request.getParameter("address"); 
+String city = request.getParameter("city");
+String state = request.getParameter("state"); 
+String country = request.getParameter("country"); 
+String paymentMethod = request.getParameter("paymentMethod");
+String transactionId = request.getParameter("transactionId");
+String mobileNumber = request.getParameter("mobileNumber");
+try(Connection connection=ConnectionProvider.getConnection();
+		PreparedStatement preparedStatement = connection.prepareStatement(sql))
+{
+	
+}
+%>

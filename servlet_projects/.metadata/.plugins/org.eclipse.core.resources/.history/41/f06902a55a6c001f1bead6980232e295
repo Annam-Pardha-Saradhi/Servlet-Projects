@@ -1,0 +1,5 @@
+package com.proj1.dao;
+
+public class UserDao {
+
+}

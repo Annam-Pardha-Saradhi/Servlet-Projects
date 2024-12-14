@@ -1,0 +1,144 @@
+<%@page import="com.project.connectionprovider.ConnectionProvider"%>
+<%@page import="java.sql.*"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="stylesheet" href="css/addressPaymentForOrder-style.css">
+<script src="https://kit.fontawesome.com/d72ad669ec.js" crossorigin="anonymous"></script>
+<title>Home</title>
+    <script type="text/javascript"> 
+        function preventBack() { 
+            window.history.forward();  
+        } 
+          
+        setTimeout("preventBack()", 0); 
+          
+        window.onunload = function () { null }; 
+    </script> 
+</head>
+<body>
+<br>
+<table>
+<thead>
+		 <%
+			 	
+		 	String email = session.getAttribute("email").toString();
+			int total=0;
+			int sno=0;
+			try
+			{
+				Connection connection = ConnectionProvider.getConnection();
+				Statement statement = connection.createStatement();
+				String query1 = "select sum(total) from cart where address is null";
+				ResultSet rs1 = statement.executeQuery(query1);
+				while(rs1.next())
+				{
+					total=rs1.getInt(1);
+				}
+		  %>	
+          <tr>
+          <th scope="col"><a href="myCart.jsp"><i class='fas fa-arrow-circle-left'> Back</i></a></th>
+            <th scope="col" style="background-color: yellow;">Total: <i class="fa fa-inr"></i> <%=total %></th>
+          </tr>
+        </thead>
+        <thead>
+          <tr>
+          <th scope="col">S.No</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Category</th>
+            <th scope="col"><i class="fa fa-inr"></i> price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Sub Total</th>
+          </tr>
+        </thead>
+        <tbody>
+        	<%
+      			ResultSet rs2= statement.executeQuery("select * from product inner join cart on product.id=cart.product_id and cart.email='"+email+"' and address is null");
+      			while(rs2.next())
+      			{
+      		%>
+          <tr>
+          <%sno=sno+1; %>
+           <td><%=sno %></td>
+            <td><%=rs2.getString("name") %></td>
+            <td><%=rs2.getString("category") %></td>
+            <td><i class="fa fa-inr"></i> <%=rs2.getString("price") %></td>
+            <td> <%=rs2.getString("quantity") %></td>
+            <td><i class="fa fa-inr"></i><%=rs2.getString("total") %> </td>
+            </tr>
+         <%
+      			}
+      			ResultSet rs3 = statement.executeQuery("select * from users where email='"+email+"'");
+      			while(rs3.next())
+      			{
+      				
+         %>
+        </tbody>
+      </table>
+      
+<hr style="width: 100%">
+<form action="addressPaymentForOrderAction.jsp" method="post">
+ <div class="left-div">
+ <h3>Enter Address</h3>
+ <input class="input-style" type="text" name="address" value="<%=rs3.getString("address") %>" placeholder="Enter Address" required/>
+ </div>
+
+<div class="right-div">
+<h3>Enter city</h3>
+<input class="input-style" type="text" name="city" value="<%=rs3.getString("city") %>" placeholder="Enter City" required/>
+</div> 
+
+<div class="left-div">
+<h3>Enter State</h3>
+<input class="input-style" type="text" name="state" value="<%=rs3.getString("state") %>" placeholder="Enter State" required/>
+</div>
+
+<div class="right-div">
+<h3>Enter country</h3>
+<input class="input-style" type="text" name="country" value="<%=rs3.getString("country") %>" placeholder="Enter Country" required/>
+</div>
+<h3 style="color: red">*If there is no address its mean that you did not set you address!</h3>
+<h3 style="color: red">*This address will also updated to your profile</h3>
+<hr style="width: 100%">
+<div class="left-div">
+<h3>Select way of Payment</h3>
+ <select class="input-style" name="paymentMethod" required>
+ <option value="Cash On Delivery(COD)">Cash On Delivery</option>
+ <option value="Online Payment">Online Payment</option>
+ </select>
+</div>
+
+<div class="right-div">
+<h3>Pay online on this onlineshopping@pay.com</h3>
+<input class="input-style" type="text" name="transactionId" placeholder="Enter Transaction ID"/>
+<h3 style="color: red">*If you select online Payment then enter you transaction ID here otherwise leave this blank</h3>
+</div>
+<hr style="width: 100%">
+
+<div class="left-div">
+<h3>Mobile Number</h3>
+<input class="input-style" type="text" name="mobileNumber" value="<%=rs3.getString("mobileNumber") %>" placeholder="Enter Mobile Number" required/>
+<h3 style="color: red">*This mobile number will also updated to your profile</h3>
+</div>
+<div class="right-div">
+<h3 style="color: red">*If you enter wrong transaction id then your order will be can cancel!</h3>
+<button class="button" type="submit" >Proceed to Generate Bill & Save<i class='far fa-arrow-alt-circle-right'></i></button>
+<h3 style="color: red">*Fill form correctly</h3>
+</div>
+</form>
+<%
+      			}
+}
+catch(Exception e)
+{
+	e.printStackTrace();
+}
+%>
+
+
+      <br>
+      <br>
+      <br>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+package com.login_project.register;
+
+import com.login_project.bean.User;
+
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+public class RegisterServlet extends HttpServlet{
+	
+	protected void doPost(HttpServletRequest request,HttpServletResponse response)
+	{
+		String name = request.getParameter("name");
+		String email = request.getParameter("mail");
+		String password = request.getParameter("pass");
+		String mobile = request.getParameter("contact");
+		
+		User user = new User(name,email,password,mobile);
+	}
+
+}

@@ -1,0 +1,25 @@
+<%@page import="com.project.connectionprovider.ConnectionProvider"%>
+<%@page import="java.sql.*"%>
+<%
+	try(Connection connection=ConnectionProvider.getConnection();
+		Statement statement = connection.createStatement())
+	{
+		String query1 = "create table users (name varchar(100),email varchar(100) primary key,mobileNumber bigint,securityQuestion varchar(200),answer varchar(200),password varchar(100),address varchar(500),city varchar(100),state varchar(100),country varchar(100))";
+		String query2 = "create table product (id int,name varchar(500),category varchar(200),price int,active varchar(10))";
+		String query3 = "create table cart (email varchar(100),product_id int,quantity int,price int,total int,address varchar(500),city varchar(100),state varchar(100),country varchar(100),mobileNumber bigint,orderDate varchar(100),deliveryDate varchar(100),paymentMethod varchar(100),transactionId varchar(100),status varchar(10))";
+		String query4 = "create table messages (id int auto_increment,email varchar(100),subject varchar(200),body varchar(1000),primary key(id))";
+		System.out.println(query1);
+		System.out.println(query2);
+		System.out.println(query3);
+		System.out.println(query4);
+		//statement.execute(query1);
+		//statement.execute(query2);
+		//statement.execute(query3);
+		statement.execute(query4);
+		System.out.println("Table Created");
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+%>

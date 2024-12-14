@@ -1,0 +1,23 @@
+<%@page import="com.project.connectionprovider.ConnectionProvider"%>
+<%@page import="java.sql.*"%>
+
+<%
+String email = session.getAttribute("email").toString();
+String address = request.getParameter("address"); 
+String city = request.getParameter("city");
+String state = request.getParameter("state"); 
+String country = request.getParameter("country"); 
+String paymentMethod = request.getParameter("paymentMethod");
+String transactionId = request.getParameter("transactionId");
+String mobileNumber = request.getParameter("mobileNumber");
+try
+{
+	Connection connection=ConnectionProvider.getConnection();
+	String query1 = "update users set address=?,city=?,state=?,country=?,";
+	PreparedStatement preparedStatement = connection.prepareStatement(query1);
+}
+catch(Exception e)
+{
+	e.printStackTrace();
+}
+%>

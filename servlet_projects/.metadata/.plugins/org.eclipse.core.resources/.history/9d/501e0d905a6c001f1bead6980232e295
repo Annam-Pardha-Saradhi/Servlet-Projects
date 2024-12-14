@@ -1,0 +1,167 @@
+package com.proj1.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import com.proj1.model.User;
+
+public class UserDao {
+	private String driver = "com.mysql.cj.jdbc.Driver";
+	private String url = "jdbc:mysql://localhost:3306/serveletpractice";
+	private String username = "root";
+	private String password = "root";
+	
+	private static final String INSERT_USERS_SQL = "INSERT INTO users" + "  (name, email, country) VALUES " +
+	        " (?, ?, ?);";
+
+	private static final String SELECT_USER_BY_ID = "select id,name,email,country from users where id =?";
+	private static final String SELECT_ALL_USERS = "select * from users";
+	private static final String DELETE_USERS_SQL = "delete from users where id = ?;";
+	private static final String UPDATE_USERS_SQL = "update users set name = ?,email= ?, country =? where id = ?;";
+	
+	
+	private Connection getConnection()
+	{
+		Connection connection = null;
+		try
+		{
+			Class.forName(driver);
+			connection = DriverManager.getConnection(url,username,password);
+		}
+		catch(SQLException | ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		return connection;
+	}
+	
+	// insert user
+	
+	public void insertUser(User user)
+	{
+		try(Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL);)
+		{
+			preparedStatement.setString(1,user.getName());
+			preparedStatement.setString(2, user.getEmail());
+			preparedStatement.setString(3, user.getCountry());
+			preparedStatement.executeUpdate();
+		}
+		catch(SQLException e)
+		{
+			printSqlException(e);
+		}
+	}
+	
+	// select user
+	
+	public User selectUser(int id)
+	{
+		User user = null;
+		try(Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID);)
+		{
+			preparedStatement.setInt(1,id);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next())
+			{
+				id = rs.getInt("id");
+				String name = rs.getString("name");
+                String email = rs.getString("email");
+                String country = rs.getString("country");
+				user = new User(id,name,email,country);
+			}
+		}
+		catch(SQLException e)
+		{
+			printSqlException(e);
+		}
+		return user;
+	}
+	
+	//select All Users
+	
+	public List < User > selectAllUsers()
+	{
+		List<User> userlist = null;
+		try(Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS);)
+		{
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next())
+			{
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+                String email = rs.getString("email");
+                String country = rs.getString("country");
+				userlist.add(new User(id,name,email,country));
+			}
+		}
+		catch(SQLException e)
+		{
+			printSqlException(e);
+		}
+		return userlist;
+	}
+	
+	// delete user
+	
+	public boolean deleteUser(int id)
+	{
+		boolean rowDeleted = false;
+		try(Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USERS_SQL);)
+		{
+			rowDeleted = preparedStatement.executeUpdate() > 0;
+		}
+		catch(SQLException e)
+		{
+			printSqlException(e);
+		}
+		return rowDeleted;
+	}
+	
+	// Update User
+	
+	public boolean updateUser(User user)
+	{
+		boolean rowUpdated = false;
+		try(Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USERS_SQL);)
+		{
+			preparedStatement.setString(1,user.getName());
+			preparedStatement.setString(2, user.getEmail());
+			preparedStatement.setString(3, user.getCountry());
+			preparedStatement.setInt(4, user.getId());
+			rowUpdated = preparedStatement.executeUpdate() > 0;
+		}
+		catch(SQLException e)
+		{
+			printSqlException(e);
+		}
+		return rowUpdated;
+	}
+	
+	private void printSqlException(SQLException ex) {
+		for(Throwable e : ex)
+		{
+			if(e instanceof SQLException)
+			{
+				e.printStackTrace();
+				System.err.println("SQLState: " + ((SQLException) e).getSQLState());
+                System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
+                System.err.println("Message: " + e.getMessage());
+                Throwable t = ex.getCause();
+                while (t != null) {
+                    System.out.println("Cause: " + t);
+                    t = t.getCause();
+                }
+			}
+		}
+	}
+}

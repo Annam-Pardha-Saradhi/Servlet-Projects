@@ -1,0 +1,5 @@
+package com.login_project.register;
+
+public class RegisterServlet {
+
+}

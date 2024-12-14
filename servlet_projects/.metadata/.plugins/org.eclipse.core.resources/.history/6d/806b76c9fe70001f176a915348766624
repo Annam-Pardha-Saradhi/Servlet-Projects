@@ -1,0 +1,33 @@
+package com.login_project.login;
+
+import java.io.IOException;
+
+import com.login_project.dao.DaoLayer;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet("/login")
+public class LoginServlet extends HttpServlet
+{
+	protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
+	{
+		String uname = request.getParameter("name");
+		String upwd = request.getParameter("pass");
+		DaoLayer daoLayer = new DaoLayer();
+		if(daoLayer.validateUser(uname, upwd))
+		{
+			request.setAttribute("status", "success");
+		}
+		else
+		{
+			request.setAttribute("status", "failed");
+		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+		dispatcher.forward(request, response);
+	}
+}

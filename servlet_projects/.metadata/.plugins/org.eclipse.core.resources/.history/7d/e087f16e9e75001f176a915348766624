@@ -1,0 +1,21 @@
+<%@page import="com.project.connectionprovider.ConnectionProvider"%>
+<%@page import="java.sql.*"%>
+
+<%
+String email = request.getParameter("email");
+String id = request.getParameter("id");
+String status = "cancel";
+try
+{
+	Connection connection = ConnectionProvider.getConnection();
+	Statement statement = connection.createStatement();
+	String sql = "update table cart set status = '"+status+"' where product_id = '"+id+"' and email = '"+email+"' and address is not null";
+	statement.executeUpdate(sql);
+	response.sendRedirect("ordersRecived.jsp?msg=cancel");
+}
+catch(Exception e)
+{
+	e.printStackTrace();
+	response.sendRedirect("ordersRecived.jsp?msg=invalid");
+}
+%>
